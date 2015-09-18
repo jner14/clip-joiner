@@ -5,6 +5,10 @@ Created on Tue Sep 15 18:43:27 2015
 The user can select a working directory where from all mp4s can be compiled
 into one large clip and then saved in the same location.
 
+Potencial Changes:
+- Ask user to set the length of removal from videos' names instead of hard coded to 8
+- Remove file type based off last dot not based off -4 index position
+
 @author: Jason
 """
 
@@ -45,18 +49,16 @@ def main():
             txtClip = TextClip(f[8:-4],color='white', font="Amiri-Bold", fontsize=30)
             cvcs.append(CompositeVideoClip( [txtClip.set_pos('center')], size=screensize).subclip(0,5))
         
-        #Load clips from list into a list of clips
-#        if len(mp4List) > 30 and len(mp4List) < 60: 
-#            mp4List1 = mp4List[:30]
-#            mp4List2 = mp4List[30:]
-        
+        #Load clips from mp4List
         finishedClips = []
         for i in range(len(mp4List)):
             clip = VideoFileClip(mp4List[i])
-#        clips = [VideoFileClip(n) for n in mp4List]
         
-        #Add text clip to each video clip
+            #Add text clip to each video clip
             finishedClips.append(CompositeVideoClip([clip,cvcs[i]],size=screensize))
+            
+            #trying to get rid of "too many open files" error
+            clip = None
         
         #Append all the clips into one large clip
         comp = concatenate(finishedClips, method="compose")
@@ -71,7 +73,6 @@ def main():
         #Clean up
         comp = None
         finishedClips = None
-        clips = None
         
         #Ask user to exit or start over
         while(True):
