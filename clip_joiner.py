@@ -4,9 +4,9 @@ Created on Tue Sep 15 18:43:27 2015
 
 The user can select a working directory where from all mp4s can be compiled
 into one large clip and then saved in the same location.  The name of each clip 
-is used to add a subchapter heading to 
+is used to add a sub-chapter heading.
 
-Potencial Changes:
+Potential Changes:
 - Ask user to set the length of removal from videos' names instead of hard coded to 8
 - Remove file type based off last dot not based off -4 index position
 - Make selecting directory more convenient
@@ -45,7 +45,7 @@ def main():
         for f in fileList:
             if f[-4:] == ".mp4":
                 mp4List.append(f)
-                print f
+                print(f)
         
         #Load first clip to extract screensize
         screensize = VideoFileClip(mp4List[0]).size
